@@ -1,0 +1,26 @@
+Product code : 101
+Cost : Rs 200.0
+Quantity : 2
+Total Value : Rs 400.0
+
+Product code : 102
+Cost : Rs 300.0
+Quantity : 2
+Total Value : Rs 600.0
+
+Product code : 103
+Cost : Rs 300.0
+Quantity : 15
+Total Value : Rs 4500.0
+
+Product code : 104
+Cost : Rs 500.0
+Quantity : 10
+Total Value : Rs 5000.0
+
+Product code : 105
+Cost : Rs 300.0
+Quantity : 4
+Total Value : Rs 1200.0
+
+Total value of all products : Rs 11700
