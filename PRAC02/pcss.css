@@ -1,0 +1,71 @@
+body, h1, h2, p, ul, li, form {
+    margin: 10px;
+    padding: 5px;
+}
+body{
+	background-color: #e9f7ec; /* delete backgroud image if you want only colour */
+	background-image: url('b2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+h1{
+	margin-bottom: 3%;
+}
+span{
+	color: black;
+}
+nav ul {
+    list-style: none;
+	text-decoration: none; 
+	margin: 5%;
+	color: black;
+}
+
+  input, textarea {
+	text-align: center;
+	
+  }
+  ::-webkit-input-placeholder {
+	text-align: center;
+  }
+
+ #table1{
+	color: brown;
+	
+	width: 60%;
+ }
+  textarea {
+	text-align: left;
+	width: 500px; 
+	height: 150px
+	
+  }
+  textarea::placeholder {
+	text-align: center;
+	line-height: 1000%;
+}
+#name, #email{
+	width: 500px; 
+	height: 30px;
+	margin: 1%;
+	font-size: 16px;
+}
+#sub{
+	width: 500px; 
+	height: 30px; 
+	margin: 1%;
+	border-radius: 8px;
+}
+#bb, #la, #cro{
+	border-radius: 15px;
+	width: 1000px; 
+	height: 500px;
+}
+#pb, #cr, #ls{
+	color:#942934;
+}
+#h2{
+	margin-left: 10%;
+	margin-right: 10%; 
+	margin-bottom: 5%;
+}
