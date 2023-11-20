@@ -2,7 +2,9 @@ package com.service;
 
 import java.util.List;
 
+import com.model.Buy;
 import com.model.Policy;
+import com.model.PolicyDetails;
 import com.model.PolicyHolder;
 import com.repository.PolicyHolderRepository;
 
@@ -18,8 +20,19 @@ public class PhService {
 
 		return phRepository.doLogin(userName, password);
 	}
-	public List<Policy> fetchAllProducts() {
+	public List<Policy> fetchAllPolicies() {
 
-		return phRepository.fetchAllProducts();
+		return phRepository.fetchAllPolicies();
+	}
+
+	public PolicyDetails fetchPolicyDetails(int id) {
+		// TODO Auto-generated method stub
+		return phRepository.fetchPolicyDetails(id);
+	}
+	public void buyPolicy(Buy buy) {
+		phRepository.buyPolicy(buy);
+	}
+	public Buy fetchUserId(String username) {
+		return phRepository.fetchUserId(username);
 	}
 }

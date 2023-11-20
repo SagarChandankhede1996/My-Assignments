@@ -6,9 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.model.Buy;
 import com.model.Policy;
+import com.model.PolicyDetails;
 import com.model.PolicyHolder;
 
 
@@ -85,7 +88,7 @@ public class PolicyHolderRepository {
 		dbClose();
 		return status;
 	}
-	public List<Policy> fetchAllProducts() {
+	public List<Policy> fetchAllPolicies() {
 		dbConnect();
 		List<Policy> list = new ArrayList<Policy>();
 		String sql = "select * from Policy";
@@ -109,4 +112,76 @@ public class PolicyHolderRepository {
 		dbClose();
 		return list;
 	}
+	public PolicyDetails fetchPolicyDetails(int id) {
+		dbConnect();
+		//List<PolicyDetails> list = new ArrayList<>();
+		String sql=" select p.title, p.premiumAmount, p.termDuration,p.description, d.long_des from policy p join policydetails d on p.id = d.policy_id where p.id=?";
+		PolicyDetails policyDetails=new PolicyDetails();
+		try {
+			PreparedStatement preparedStatement= con.prepareStatement(sql);
+			preparedStatement.setInt(1,id);
+			ResultSet rst = preparedStatement.executeQuery();
+			if(rst.next()) {
+				
+				
+//				policyDetails.setId(rst.getInt("id"));
+				policyDetails.setTitle(rst.getString("title"));
+				policyDetails.setDescription(rst.getString("description"));
+				policyDetails.setTermDuration(rst.getInt("termDuration"));
+				policyDetails.setPremiumAmount(rst.getDouble("premiumAmount"));
+				policyDetails.setLongDesc(rst.getString("long_des"));
+			}
+				
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		dbClose();
+		return policyDetails;
+		
+	}
+	public void buyPolicy(Buy buy) {
+		dbConnect();
+		String sql="insert into buy(id,user_id, policy_id, dop) values(?,?,?,?)";
+		
+		try {
+			
+			PreparedStatement preparedStatement= con.prepareStatement(sql);
+			preparedStatement.setInt(1, buy.getId());
+			preparedStatement.setInt(2, buy.getUser_id());
+			preparedStatement.setInt(3, buy.getPolicy_id());
+			preparedStatement.setString(4, buy.getDate_of_purchase());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dbClose();
+	}
+	public Buy fetchUserId(String username) {
+		dbConnect();
+		
+		String sql="select id from policyholder where username=?";
+		Buy buy=new Buy();
+		try {
+			PreparedStatement preparedStatement= con.prepareStatement(sql);
+			preparedStatement.setString(1,username);
+			ResultSet rst = preparedStatement.executeQuery();
+			if(rst.next()) {
+				
+				buy.setUser_id(rst.getInt("id"));
+//				
+			}
+				
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		dbClose();
+		return buy;
+		
+	}
+	
 }

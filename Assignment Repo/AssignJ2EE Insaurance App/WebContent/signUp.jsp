@@ -6,9 +6,18 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<style>
+.field{
+text-align: center;
+margin:auto;
+width:40%
+
+}
+</style>
 <body>
+	
+	<fieldset class="field">
 	<h1>Sign Up</h1>
-	<fieldset style="width: 50%">
 		<legend>Sign Up</legend>
 		<form action = "MainController?page=sign_up_form" method="post">
 			<label> Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" name="name" required="required" /><br /><br />

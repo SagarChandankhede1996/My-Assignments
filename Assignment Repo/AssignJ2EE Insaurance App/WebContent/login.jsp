@@ -7,10 +7,19 @@
 <title>Login Page</title>
 
 </head>
-<body>
-<h1>LogIn</h1>
+<style>
+.field{
+text-align: center;
+margin:auto;
+width:40%
 
-	<fieldset style="width: 50%">
+}
+</style>
+<body>
+
+
+	<fieldset class="field">
+	<h1>LogIn</h1>
 		<legend>Log In</legend>
 		<form action = "MainController?page=login_form" method="post">
 			

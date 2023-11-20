@@ -1,14 +1,18 @@
 package com.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.model.Buy;
 import com.model.Policy;
+import com.model.PolicyDetails;
 import com.model.PolicyHolder;
 
 import com.service.PhService;
@@ -21,8 +25,9 @@ import com.service.PhService;
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private PhService phService=new PhService();  
-  
+   HttpSession session;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		session=request.getSession();
 		String page=request.getParameter("page");
 		if(page == null)//we have to do it as page will go first for null parameter that time we have to load default page
 		{
@@ -37,10 +42,38 @@ public class MainController extends HttpServlet {
 			request.getRequestDispatcher("signUp.jsp").forward(request, response);
 			return;
 		}
+		if(page.equals("details")) {
+			//fetch all entries from cart table and give count and list to cart
+			String username=(String) session.getAttribute("username");
+			int id = Integer.parseInt(request.getParameter("id"));
+			PolicyDetails det = phService.fetchPolicyDetails(id);
+			request.setAttribute("details", det);
+			
+			Buy buy=new Buy();
+			Policy policy=new Policy();
+			PolicyHolder policyHolder=new PolicyHolder();
+			LocalDate date=LocalDate.now();
+			int day=date.getDayOfMonth();
+			int month=date.getMonthValue();
+			int year = date.getYear();
+			String dop=day+"/"+month+"/"+year;
+			Buy uid = phService.fetchUserId(username);
+			
+			buy.setUser_id(uid.getUser_id());
+			buy.setPolicy_id(id);
+			buy.setDate_of_purchase(dop);
+			phService.buyPolicy(buy);
+			
+			request.getRequestDispatcher("details.jsp").forward(request, response);
+			return;
+		}
+		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		session=request.getSession();
+		
 		String page=request.getParameter("page"); 
 		if(page.equalsIgnoreCase("sign_up_form")) {
 			String name= request.getParameter("name");
@@ -67,7 +100,9 @@ public class MainController extends HttpServlet {
 			String password=request.getParameter("password");
 			boolean status= phService.doLogin(userName, password);
 			if(status== true) {
-				List<Policy> list= phService.fetchAllProducts();
+				//add username to session
+				session.setAttribute( "username", userName);
+				List<Policy> list= phService.fetchAllPolicies();
 				
 				request.setAttribute("list_products", list);
 				request.getRequestDispatcher("coustomer_dashboard.jsp").forward(request, response);
@@ -78,6 +113,7 @@ public class MainController extends HttpServlet {
 				return;
 			}
 		}
+		
 	}
 
 }

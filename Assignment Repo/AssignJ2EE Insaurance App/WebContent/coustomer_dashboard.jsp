@@ -36,7 +36,7 @@
 			<span>Premium : INR.<%=p.getPremiumAmount()%></span> <br />
 			<p><%=p.getDescription()%></p>
 			<span>Term Duration : <%=p.getTermDuration()%> years</span> <br /> <br />
-			
+			<span><a href="MainController?page=details&id=<%=p.getId()%>">Show Policy</a></span>
 		</div>
 		<%
 			}
