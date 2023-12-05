@@ -1,0 +1,24 @@
+package stacksQueue20;
+
+public class ArrangingCoins441 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int n = 5;
+		System.out.println(arrangeCoins(n));
+	}
+	 public static int arrangeCoins(int n) {
+	        int st = 0;
+	        int end = n;
+
+	        while(st<=end){
+	            double mid = st + (end-st)/2;
+
+	            if(mid*(mid+1)/2>n) end = (int)mid-1;
+	            else if(mid*(mid+1)/2<n) st = (int)mid+1;
+	            else return (int)mid;
+	        }
+	        return end;
+	    }
+
+}
